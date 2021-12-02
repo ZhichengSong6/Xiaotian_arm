@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -no-pie -ggdb -march=native -mavx -mfma -ffast-math -fopenmp   CMakeFiles/Arm_sim.dir/simulate.cpp.o  -o Arm_sim  -L/home/xiaotian/Xiaotian_arm/sim/lib -Wl,-rpath,/home/xiaotian/Xiaotian_arm/sim/lib -lmujoco200 ../../sim/lib/libglfw.so.3 -lGL -lglew -luitools -lpthread -lrt 

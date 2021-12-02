@@ -1923,7 +1923,7 @@ void init(void)
         mju_error("Headers and library have different versions");
 
     // activate MuJoCo license
-    mj_activate("../mjkey.txt");
+    mj_activate("../../sim/mjkey.txt");
 
     // init GLFW, set timer callback (milliseconds)
     if (!glfwInit())
@@ -2010,7 +2010,7 @@ int main(int argc, const char** argv)
     init();
 
     // request loadmodel if file given (otherwise drag-and-drop)
-    argv[1] = "../Robot_model/Robot_arm.xml";
+    argv[1] = "../../Robot_model/ARM_XML/ARM.xml";
     mju_strncpy(filename, argv[1], 1000);
     settings.loadrequest = 2;
     // if( argc>1 )

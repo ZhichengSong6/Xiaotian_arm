@@ -1821,6 +1821,7 @@ void render(GLFWwindow* window)
     glfwSwapBuffers(window);
 }
 
+#pragma endregion
 
 // simulate in background thread (while rendering in main thread)
 void simulate(void)
@@ -1867,6 +1868,7 @@ void simulate(void)
                     mjv_applyPerturbPose(m, d, &pert, 0);  // move mocap bodies only
                     mjv_applyPerturbForce(m, d, &pert);
 
+                    d->ctrl[0] = 1;
                     // run single step, let next iteration deal with timing
                     mj_step(m, d);
                 }
@@ -1910,7 +1912,7 @@ void simulate(void)
     }
 }
 
-#pragma endregion
+
 
 //-------------------------------- init and main ----------------------------------------
 

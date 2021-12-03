@@ -1,6 +1,21 @@
 <mujoco model="ARM">
-    <compiler angle="radian" />
+     <compiler angle="radian" meshdir='arm_meshes' balanceinertia='false'/>
     <size njmax="500" nconmax="100" />
+    <option gravity='0 0 -9.806' iterations='50' solver='Newton' timestep='0.002'/>
+
+    <default>
+        <geom contype="1" conaffinity="1" friction="0.6 0.3 0.3" rgba="0.5 0.6 0.7 1" margin="0.001" group="0"/>
+
+        <default class="visual">
+            <geom contype="0" conaffinity="0" group="1" type="mesh" rgba="0.9 0.9 0.9 1.0"/>
+        </default>
+
+        <light castshadow="false" diffuse="1 1 1"/>
+        <motor ctrllimited='true'/>
+        <camera fovy="60"/>
+        <joint damping="0.01" armature="0.01"/>
+    </default>
+
     <asset>
         <mesh name="base_link" file="base_link.STL" />
         <mesh name="Link1" file="Link1.STL" />
@@ -9,32 +24,105 @@
         <mesh name="Link4" file="Link4.STL" />
         <mesh name="Link5" file="Link5.STL" />
     </asset>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="1.0 1.0 1.0" rgb2="1.0 1.0 1.0" width="512" height="512"/>
+        <texture name="plane" type="2d" builtin="flat" rgb1="1 1 1" rgb2="1 1 1" width="512" height="512" mark="cross" markrgb="0 0 0"/>
+        <material name="plane" reflectance="0.0" texture="plane" texrepeat="3 3" texuniform="true"/>
+    </asset>
+
+    <visual>
+        <rgba com="0.502 1.0 0 0.5" contactforce="0.2 0.98 0.2 0.8" contactpoint="1.0 1.0 0.6 0.4"/>
+        <scale com="0.2" forcewidth="0.05" contactwidth="0.10" contactheight="0.04"/>
+    </visual>
+
+
     <worldbody>
-        <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="base_link" />
-        <body name="Link1" pos="0 0.081 0" quat="0.707105 -0.707108 0 0">
-            <inertial pos="-0.00035044 -0.0006963 0.042913" quat="0.726584 0.036731 -0.0280933 0.68552" mass="0.81892" diaginertia="0.000774832 0.000704618 0.000586156" />
-            <joint name="Joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-5000 5000" />
-            <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link1" />
-            <body name="Link2" pos="0 0.035 0.05" quat="0.707105 0.707108 0 0">
-                <inertial pos="0.20462 1.2116e-05 0.034741" quat="0.499974 0.500034 0.500062 0.49993" mass="0.76516" diaginertia="0.0193544 0.0188793 0.000847747" />
-                <joint name="Joint2" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
-                <geom type="mesh" rgba="0.79216 0.81961 0.93333 1" mesh="Link2" />
-                <body name="Link3" pos="0.384 0 0.0115" quat="0.499998 0 0 0.866027">
-                    <inertial pos="0.031638 0.002191 0.024569" quat="0.0755585 0.715142 -0.0121841 0.694776" mass="0.84476" diaginertia="0.00219327 0.00194685 0.000582734" />
-                    <joint name="Joint3" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
-                    <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link3" />
-                    <body name="Link4" pos="0.10116 0.034303 0.0235" quat="0.683011 -0.683014 0.183013 -0.183013">
-                        <inertial pos="0 0 0.15264" quat="1 0 0 -0.000313515" mass="0.18955" diaginertia="0.0021653 0.00215581 6e-05" />
-                        <joint name="Joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-5000 5000" />
-                        <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link4" />
-                        <body name="Link5" pos="0 -0.0245 0.3172" quat="0.499998 0.5 -0.5 0.500002">
-                            <inertial pos="0.021578 -6.0828e-11 -0.025035" quat="0.494567 0.505374 0.505374 0.494567" mass="0.18828" diaginertia="9.86327e-05 8.66423e-05 5.24962e-05" />
-                            <joint name="Joint5" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
-                            <geom type="mesh" rgba="1 1 1 1" mesh="Link5" />
+        <light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10"/>
+        <camera name="track" mode="trackcom" pos="0 -1.3 1.6" xyaxes="1 0 0 0 0.707 0.707"/>
+        <geom name='floor' type='plane' conaffinity='1' condim='3' contype='1' rgba='1 1 1 1' material='plane' pos='0 0 0' size='0 0 1'/>
+
+        <body name='base_Link' pos = '0 0 0' euler='1.57 0 0'>
+            <geom type='mesh' mesh='base_link' class='visual' />
+            <geom name='base_link_collision' type='cylinder' size='0.04 0.038' pos='0 0.04 0' euler='1.57 0 0' />
+            <inertial pos='-0.00048925 0.040872 -1.6257E-08' mass='0.68663' fullinertia='0.00051035628 0.00051568511 0.00050434017 3.83387E-06 2.0E-10 7.5E-10' />
+            <site name='imu' pos='0 0 0' />
+
+            <!-- link1 -->
+            <body name="Link1" pos='0 0.081 0' quat="0.707105 -0.707108 0 0">
+                <inertial pos="-0.00035044 -0.0006963 0.042913" quat="0.726584 0.036731 -0.0280933 0.68552" mass="0.81892" diaginertia="0.000774832 0.000704618 0.000586156" />
+                <joint name="Joint1" pos="0 0 0" axis="0 0 1" limited="true" range="-5000 5000" />
+                <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link1" />
+                <geom name='Link1_collision' type='cylinder' size='0.04 0.04' pos='0 0 0.05' euler='1.57 0 0' />
+                <!-- link2 -->
+                <body name="Link2" pos="0 0.035 0.05" quat="0.707105 0.707108 0 0">
+                    <inertial pos="0.20462 1.2116e-05 0.034741" quat="0.499974 0.500034 0.500062 0.49993" mass="0.76516" diaginertia="0.0193544 0.0188793 0.000847747" />
+                    <joint name="Joint2" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
+                    <geom type="mesh" rgba="0.79216 0.81961 0.93333 1" mesh="Link2" />
+                    <geom name="Link2_collision" type='cylinder' size='0.02 0.12' pos='0.2 0 0.035' euler='0 1.57 0' />
+                    <!-- link3 -->
+                    <body name="Link3" pos="0.384 0 0.0115" quat="0.499998 0 0 0.866027">
+                        <inertial pos="0.031638 0.002191 0.024569" quat="0.0755585 0.715142 -0.0121841 0.694776" mass="0.84476" diaginertia="0.00219327 0.00194685 0.000582734" />
+                        <joint name="Joint3" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
+                        <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link3" />
+                        <geom name="Link3_collision" type='cylinder' size='0.04 0.03' pos='0 0 0.025' euler='0 0 0' />
+                        <!-- link4 -->
+                        <body name="Link4" pos="0.10116 0.034303 0.0235" quat="0.683011 -0.683014 0.183013 -0.183013">
+                            <inertial pos="0 0 0.15264" quat="1 0 0 -0.000313515" mass="0.18955" diaginertia="0.0021653 0.00215581 6e-05" />
+                            <joint name="Joint4" pos="0 0 0" axis="0 0 1" limited="true" range="-5000 5000" />
+                            <geom type="mesh" rgba="0.8902 0.8902 0.91373 1" mesh="Link4" />
+                            <geom name="Link4_collision" type='cylinder' size='0.02 0.12' pos='0 0 0.14' euler='0 0 0' />
+                            <!-- link5 -->
+                            <body name="Link5" pos="0 -0.0245 0.3172" quat="0.499998 0.5 -0.5 0.500002">
+                                <inertial pos="0.021578 -6.0828e-11 -0.025035" quat="0.494567 0.505374 0.505374 0.494567" mass="0.18828" diaginertia="9.86327e-05 8.66423e-05 5.24962e-05" />
+                                <joint name="Joint5" pos="0 0 0" axis="0 0 -1" limited="true" range="-5000 5000" />
+                                <geom type="mesh" rgba="1 1 1 1" mesh="Link5" />
+                                <geom name="Link5_collision" type='box' size='0.04 0.02 0.03' pos='0 0 -0.022' euler='0 0 0' />
+                            </body>
                         </body>
                     </body>
                 </body>
             </body>
         </body>
+
+        <!-- estiamted position -->
+        <body name='estiamted_base_p' pos='0 0 0' mocap='true'>
+            <geom name='base_position' conaffinity='0' contype='0' size='0.015' type='sphere' rgba='0 1 0 0.7' />
+        </body>
+
     </worldbody>
+
+    <actuator>
+
+        <position name='joint1_pos' joint='Joint1' gear='1' kp='150' ctrllimited='false' /> 
+        <position name='joint2_pos' joint='Joint2' gear='1' kp='10' ctrllimited='false' />
+        <position name='joint3_pos' joint='Joint3' gear='1' kp='10' ctrllimited='false' />
+        <position name='joint4_pos' joint='Joint4' gear='1' kp='10' ctrllimited='false' />
+        <position name='joint5_pos' joint='Joint5' gear='1' kp='10' ctrllimited='false' />
+
+        <velocity name='joint1_vel' joint='Joint1' gear='1' kv='1' ctrllimited='false' />
+        <velocity name='joint2_vel' joint='Joint2' gear='1' kv='1' ctrllimited='false' />
+        <velocity name='joint3_vel' joint='Joint3' gear='1' kv='1' ctrllimited='false' />
+        <velocity name='joint4_vel' joint='Joint4' gear='1' kv='1' ctrllimited='false' />
+        <velocity name='joint5_vel' joint='Joint5' gear='1' kv='1' ctrllimited='false' />
+    </actuator>
+
+    <sensor>
+
+        <!-- sensordata index from 0-3 -->
+        <jointpos name='Link1' joint='Joint1'/>
+        <jointpos name='Link2' joint='Joint2'/>
+        <jointpos name='Link3' joint='Joint3'/>
+        <jointpos name='Link4' joint='Joint4'/>
+        <jointpos name='Link5' joint='Joint5'/>
+
+        <!-- sensordata index from 12-17 -->
+        <jointvel name='Link1_vel' joint='Joint1'/>
+        <jointvel name='Link2_vel' joint='Joint2'/>
+        <jointvel name='Link3_vel' joint='Joint3'/>
+        <jointvel name='Link4_vel' joint='Joint4'/>
+        <jointvel name='Link5_vel' joint='Joint5'/>
+
+    </sensor>
+
 </mujoco>

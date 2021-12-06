@@ -334,4 +334,24 @@
       effort="5000"
       velocity="5000" />
   </joint>
+  <joint
+    name="virtual_gripper_joint"
+    type="revolute">
+    <origin 
+      xyz="0.4975 0 -0.245"
+      rpy="0 0 0" />
+    <parent
+      link="Link5" />
+    <child
+      link="virtual_gripper" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-5000"
+      upper="5000"
+      effort="5000"
+      velocity="5000" />
+  </joint>
+  <link name="virtual_gripper">
+	</link>
 </robot>

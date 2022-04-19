@@ -11,4 +11,4 @@ sim/CMakeFiles/Arm_sim.dir/simulate.cpp.o
  ../sim/./include/mjxmacro.h
  ../sim/./include/mujoco.h
  ../sim/./include/uitools.h
- /home/xiaotian/Xiaotian_arm/sim/simulate.cpp
+ /home/zhicheng/Xiaotian_arm/sim/simulate.cpp

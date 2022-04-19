@@ -1,4 +1,4 @@
-# Install script for directory: /home/xiaotian/Xiaotian_arm/sim
+# Install script for directory: /home/zhicheng/Xiaotian_arm/sim
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

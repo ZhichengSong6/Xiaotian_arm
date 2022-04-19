@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Xiaotian_Arm_v1">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-5.552E-05 -1.015E-05 0.042082"
+        rpy="0 0 0" />
+      <mass
+        value="0.43908" />
+      <inertia
+        ixx="7.239082E-05"
+        ixy="-6.717E-08"
+        ixz="2.5528E-07"
+        iyy="7.254998E-05"
+        iyz="2.737E-08"
+        izz="6.940185E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="actuator1">
+    <inertial>
+      <origin
+        xyz="2.1366E-05 0.0039447 0.042133"
+        rpy="0 0 0" />
+      <mass
+        value="0.71255" />
+      <inertia
+        ixx="0.00028840056"
+        ixy="5.237E-08"
+        ixz="-7.968E-07"
+        iyy="0.00022695840"
+        iyz="-9.04289E-06"
+        izz="0.00022002054" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="continuous">
+    <origin
+      xyz="0 0 0.06989"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="actuator1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="actuator2">
+    <inertial>
+      <origin
+        xyz="0.17086 -7.8809E-06 -0.039878"
+        rpy="0 0 0" />
+      <mass
+        value="0.77947" />
+      <inertia
+        ixx="0.00048672399"
+        ixy="-2.43021E-06"
+        ixz="-3.4859853E-04"
+        iyy="0.01373523349"
+        iyz="-2.590E-08"
+        izz="0.01348681955" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="continuous">
+    <origin
+      xyz="0 -0.038 0.05"
+      rpy="1.5708 0 0" />
+    <parent
+      link="actuator1" />
+    <child
+      link="actuator2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="actuator3">
+    <inertial>
+      <origin
+        xyz="0.10941 -0.058867 0.035235"
+        rpy="0 0 0" />
+      <mass
+        value="0.74695" />
+      <inertia
+        ixx="0.00058645313"
+        ixy="-8.7181E-04"
+        ixz="8.041913E-05"
+        iyy="0.00669000541"
+        iyz="-3.653668E-05"
+        izz="0.00679703461" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="continuous">
+    <origin
+      xyz="0.337 0 -0.07949"
+      rpy="0 0 -3.1033" />
+    <parent
+      link="actuator2" />
+    <child
+      link="actuator3" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="actuator4">
+    <inertial>
+      <origin
+        xyz="2.3851E-05 -0.00082417 0.030881"
+        rpy="0 0 0" />
+      <mass
+        value="0.46441" />
+      <inertia
+        ixx="0.00016959202"
+        ixy="1.1867E-07"
+        ixz="1.9833E-07"
+        iyy="1.36193E-04"
+        iyz="-1.097817E-05"
+        izz="1.0152722E-04" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="continuous">
+    <origin
+      xyz="0.2627 -0.072177 0.0365"
+      rpy="-1.5708 0 -1.5708" />
+    <parent
+      link="actuator3" />
+    <child
+      link="actuator4" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="actuator5">
+    <inertial>
+      <origin
+        xyz="0.052314 -0.004505 -0.035317"
+        rpy="0 0 0" />
+      <mass
+        value="0.51679" />
+      <inertia
+        ixx="0.00023031421"
+        ixy="-2.321837E-05"
+        ixz="-5.146469E-05"
+        iyy="0.00049813937"
+        iyz="4.3798E-06"
+        izz="0.00037932324" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="continuous">
+    <origin
+      xyz="0 -0.03849 0.045"
+      rpy="1.5708 -1.5708 0" />
+    <parent
+      link="actuator4" />
+    <child
+      link="actuator5" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="actuator6">
+    <inertial>
+      <origin
+        xyz="-3.6362E-10 9.3665E-11 0.04125"
+        rpy="0 0 0" />
+      <mass
+        value="0.29748" />
+      <inertia
+        ixx="0.00027462"
+        ixy="-4.3703E-10"
+        ixz="-3.3278E-13"
+        iyy="0.00020029"
+        iyz="1.1996E-14"
+        izz="0.00019559" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Xiaotian_Arm_v1/meshes/actuator6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="continuous">
+    <origin
+      xyz="0.1056 -0.0090297 -0.0395"
+      rpy="-1.5708 0 -1.6561" />
+    <parent
+      link="actuator5" />
+    <child
+      link="actuator6" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+</robot>

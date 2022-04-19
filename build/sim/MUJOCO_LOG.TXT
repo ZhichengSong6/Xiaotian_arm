@@ -1,6 +1,0 @@
-Thu Dec  2 15:38:39 2021
-ERROR: Could not open activation key file mjkey.txt
-
-Thu Dec  2 15:42:39 2021
-ERROR: Could not open activation key file sim/mjkey.txt
-

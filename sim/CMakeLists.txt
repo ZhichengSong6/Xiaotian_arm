@@ -16,6 +16,7 @@ link_directories(${CMAKE_BIN_DIR})
 
 add_executable(Arm_sim simulate.cpp)
 
+
 target_include_directories(Arm_sim PRIVATE ./include/)
 target_link_libraries(Arm_sim mujoco200 ${GLFW} GL glew uitools pthread rt)
 

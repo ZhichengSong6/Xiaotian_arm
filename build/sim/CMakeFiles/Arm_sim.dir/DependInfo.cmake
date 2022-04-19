@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/xiaotian/Xiaotian_arm/sim/simulate.cpp" "/home/xiaotian/Xiaotian_arm/build/sim/CMakeFiles/Arm_sim.dir/simulate.cpp.o"
+  "/home/zhicheng/Xiaotian_arm/sim/simulate.cpp" "/home/zhicheng/Xiaotian_arm/build/sim/CMakeFiles/Arm_sim.dir/simulate.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

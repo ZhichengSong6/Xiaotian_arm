@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/xiaotian/Xiaotian_arm
+CMAKE_SOURCE_DIR = /home/zhicheng/Xiaotian_arm
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/xiaotian/Xiaotian_arm/build
+CMAKE_BINARY_DIR = /home/zhicheng/Xiaotian_arm/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/xiaotian/Xiaotian_arm/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/xiaotian/Xiaotian_arm/build/CMakeFiles /home/xiaotian/Xiaotian_arm/build/sim/CMakeFiles/progress.marks
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/xiaotian/Xiaotian_arm/build/CMakeFiles 0
+	cd /home/zhicheng/Xiaotian_arm/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/zhicheng/Xiaotian_arm/build/CMakeFiles /home/zhicheng/Xiaotian_arm/build/sim/CMakeFiles/progress.marks
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/zhicheng/Xiaotian_arm/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/clean
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/preinstall
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/preinstall
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/xiaotian/Xiaotian_arm/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/zhicheng/Xiaotian_arm/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 sim/CMakeFiles/Arm_sim.dir/rule:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/CMakeFiles/Arm_sim.dir/rule
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f CMakeFiles/Makefile2 sim/CMakeFiles/Arm_sim.dir/rule
 .PHONY : sim/CMakeFiles/Arm_sim.dir/rule
 
 # Convenience name for target.
@@ -122,7 +122,7 @@ Arm_sim: sim/CMakeFiles/Arm_sim.dir/rule
 
 # fast build rule for target.
 Arm_sim/fast:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/build
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/build
 .PHONY : Arm_sim/fast
 
 simulate.o: simulate.cpp.o
@@ -131,7 +131,7 @@ simulate.o: simulate.cpp.o
 
 # target to build an object file
 simulate.cpp.o:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.o
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.o
 .PHONY : simulate.cpp.o
 
 simulate.i: simulate.cpp.i
@@ -140,7 +140,7 @@ simulate.i: simulate.cpp.i
 
 # target to preprocess a source file
 simulate.cpp.i:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.i
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.i
 .PHONY : simulate.cpp.i
 
 simulate.s: simulate.cpp.s
@@ -149,7 +149,7 @@ simulate.s: simulate.cpp.s
 
 # target to generate assembly for a file
 simulate.cpp.s:
-	cd /home/xiaotian/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.s
+	cd /home/zhicheng/Xiaotian_arm/build && $(MAKE) -f sim/CMakeFiles/Arm_sim.dir/build.make sim/CMakeFiles/Arm_sim.dir/simulate.cpp.s
 .PHONY : simulate.cpp.s
 
 # Help Target
@@ -175,6 +175,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/xiaotian/Xiaotian_arm/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/zhicheng/Xiaotian_arm/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -6,5 +6,5 @@ CXX_FLAGS = -O3 -no-pie -ggdb -march=native -mavx -mfma -ffast-math -fopenmp   -
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/xiaotian/Xiaotian_arm/build/sim -I/home/xiaotian/Xiaotian_arm/sim -I/home/xiaotian/Xiaotian_arm/build -I/home/xiaotian/Xiaotian_arm/sim/./include 
+CXX_INCLUDES = -I/home/zhicheng/Xiaotian_arm/build/sim -I/home/zhicheng/Xiaotian_arm/sim -I/home/zhicheng/Xiaotian_arm/build -I/home/zhicheng/Xiaotian_arm/sim/./include 
 

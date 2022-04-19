@@ -80,15 +80,19 @@ mujoco.h
 glfw3.h
 ../sim/./include/glfw3.h
 
-/home/xiaotian/Xiaotian_arm/sim/simulate.cpp
+/home/zhicheng/Xiaotian_arm/sim/simulate.cpp
 mjxmacro.h
-/home/xiaotian/Xiaotian_arm/sim/mjxmacro.h
+/home/zhicheng/Xiaotian_arm/sim/mjxmacro.h
 uitools.h
-/home/xiaotian/Xiaotian_arm/sim/uitools.h
+/home/zhicheng/Xiaotian_arm/sim/uitools.h
 stdio.h
-/home/xiaotian/Xiaotian_arm/sim/stdio.h
+/home/zhicheng/Xiaotian_arm/sim/stdio.h
 string.h
-/home/xiaotian/Xiaotian_arm/sim/string.h
+/home/zhicheng/Xiaotian_arm/sim/string.h
+iostream
+-
+fstream
+-
 thread
 -
 mutex

@@ -13,6 +13,8 @@
 #include "stdio.h"
 #include "string.h"
 
+#include <iostream>
+#include <fstream>
 #include <thread>
 #include <mutex>
 #include <chrono>
@@ -25,6 +27,22 @@ const int maxgeom = 5000;           // preallocated geom array in mjvScene
 const double syncmisalign = 0.1;    // maximum time mis-alignment before re-sync
 const double refreshfactor = 0.7;   // fraction of refresh available for simulation
 
+
+char mjkeyfilename[100] = "../../sim/mjkey.txt";
+
+char xmlfilepath[100] = "../../robot_model/ARM_XML/Xiaotian_Arm_v1.xml";
+const double init_qpos[6] = {0, 0, 0, 0, 0, 0};
+const double target_qpos1[6] = {0, 1.57, -3.14, 0, 0, 0};
+const double target_qpos2[6] = {0, 0.785, -1.57, 0, 0, 0};
+const double target_qpos3[6] = {0, 2.355, -2.093, 0, 0, 0};
+int _k = 0;
+int iter1 = 1;
+int iter2 = 1;
+int Kp[6] = {10, 300, 200, 10, 70, 10};
+int Kd[6] = {1, 22, 15, 1, 5, 1};
+double joint_limit[6] = {20, 40, 20, 20, 20, 20};
+std::fstream Save_data;
+bool target_flag = true;
 
 // model and data
 mjModel* m = NULL;
@@ -52,6 +70,83 @@ mjrContext con;
 GLFWwindow* window = NULL;
 mjuiState uistate;
 mjUI ui0, ui1;
+
+void applyCtrl(){
+    double err[6] = {0, 0, 0, 0, 0, 0};
+    double cmd_q[6] = {0, 0, 0, 0, 0, 0};
+    double cmd_torque[6] = {0, 0, 0, 0, 0, 0};
+    const int nStep = 1500;
+    double duty = 0;
+    // if(iter1 < 2000){
+    //     duty = (double) iter1 / nStep;
+    //     iter1++;
+    // }
+    // else{
+    //     target_flag = false;
+    //     duty = (double) iter2 / nStep;
+    //     iter2++;
+    // }
+    
+    if (iter1 > 2000){
+        d->xfrc_applied[42] = -10;
+        pert.select = 7;
+    }
+    if (iter1 > 3000){
+        d->xfrc_applied[42] = -20;
+        pert.select = 7;
+    }
+    if (iter1 > 4000){
+        d->xfrc_applied[42] = -30;
+        pert.select = 7;
+    }
+    for (int i = 0; i < 3; i++)
+        std::cout << "xfrc " << i << " : " << d->xfrc_applied[i + 42] << std::endl;
+
+    duty = (double) iter1 / nStep;
+    iter1++;
+
+
+
+    double target_qpos[6] = {0, 0, 0, 0, 0, 0};
+    if(target_flag){
+        for (int i = 0; i < 6; i++){
+            target_qpos[i] = target_qpos2[i];
+        }
+    }
+    else{
+        for (int i = 0; i < 6; i++){
+            target_qpos[i] = target_qpos3[i];
+        }
+    }
+    if (duty >= 1.)
+    {
+        duty = 1;
+    }
+    std::cout << "Duty: " << duty << std::endl;
+    for (int i = 0; i < 6; i++){
+        cmd_q[i] = duty * target_qpos[i] + (1 - duty) * d->sensordata[i];
+        err[i] = cmd_q[i] - d->sensordata[i];
+        cmd_torque[i] = Kp[i] * err[i] + Kd[i] * (-d->sensordata[i + 6]);
+        if(abs(cmd_torque[i]) > joint_limit[i]){
+            cmd_torque[i] = cmd_torque[i] / abs(cmd_torque[i]) * joint_limit[i];
+        }
+        d->ctrl[i + 12] = cmd_torque[i];
+        // std::cout << "joint " << i << " torque: " << d->ctrl[i + 12] <<std::endl;
+        // std::cout << "joint " << i << " velocity: " << d->sensordata[i + 6] <<std::endl;       
+        // std::cout << "joint " << i << " cmd_q: " << cmd_q[i] <<std::endl;
+        // std::cout << "joint " << i << " q: " << d->sensordata[i] <<std::endl;
+    }
+    Save_data.open("../../data/door_state.txt", std::fstream::app);
+    for (int i = 0; i < 6; i++){
+        Save_data << cmd_torque[i] << " ";
+    }
+    Save_data << std::endl;
+    Save_data.close();
+
+
+    // getchar();
+}
+
 
 
 // UI settings not contained in MuJoCo structures
@@ -1133,6 +1228,11 @@ void loadmodel(void)
     mj_deleteModel(m);
     m = mnew;
     d = mj_makeData(m);
+
+    for (int i = 0; i< m->nq; i++){
+        d->qpos[i] = init_qpos[i];
+    }
+
     mj_forward(m, d);
 
     // re-create scene and context
@@ -1867,10 +1967,13 @@ void simulate(void)
                     mju_zero(d->xfrc_applied, 6*m->nbody);
                     mjv_applyPerturbPose(m, d, &pert, 0);  // move mocap bodies only
                     mjv_applyPerturbForce(m, d, &pert);
-
-                    d->ctrl[0] = 1;
+                    // std::cout << "pert.select: " << pert.select << std::endl;
                     // run single step, let next iteration deal with timing
-                    mj_step(m, d);
+                    mj_step1(m, d);
+
+                    applyCtrl();
+                    mj_step2(m, d);
+
                 }
 
                 // in-sync
@@ -1884,10 +1987,14 @@ void simulate(void)
                         mju_zero(d->xfrc_applied, 6*m->nbody);
                         mjv_applyPerturbPose(m, d, &pert, 0);  // move mocap bodies only
                         mjv_applyPerturbForce(m, d, &pert);
-
+                        // std::cout << "pert.select: " << pert.select << std::endl;
                         // run mj_step
                         mjtNum prevtm = d->time;
-                        mj_step(m, d);
+                        mj_step1(m, d);
+                        // updateRobotState();
+                       
+                        applyCtrl();
+                        mj_step2(m, d);
 
                         // break on reset
                         if( d->time<prevtm )
@@ -2008,11 +2115,12 @@ void init(void)
 // run event loop
 int main(int argc, const char** argv)
 {
+    
     // initialize everything
     init();
 
     // request loadmodel if file given (otherwise drag-and-drop)
-    argv[1] = "../../Robot_model/ARM_XML/ARM.xml";
+    argv[1] = xmlfilepath;
     mju_strncpy(filename, argv[1], 1000);
     settings.loadrequest = 2;
     // if( argc>1 )

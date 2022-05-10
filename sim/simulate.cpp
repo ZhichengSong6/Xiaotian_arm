@@ -19,6 +19,9 @@
 #include <mutex>
 #include <chrono>
 
+#include "SharedMemory.h"
+#include "SharedMemoryInterface.h"
+#include <queue>
 
 # pragma region global
 //-------------------------------- global -----------------------------------------------
@@ -30,19 +33,25 @@ const double refreshfactor = 0.7;   // fraction of refresh available for simulat
 
 char mjkeyfilename[100] = "../../sim/mjkey.txt";
 
-char xmlfilepath[100] = "../../robot_model/ARM_XML/Xiaotian_Arm_v1.xml";
-const double init_qpos[6] = {0, 0, 0, 0, 0, 0};
-const double target_qpos1[6] = {0, 1.57, -3.14, 0, 0, 0};
-const double target_qpos2[6] = {0, 0.785, -1.57, 0, 0, 0};
-const double target_qpos3[6] = {0, 2.355, -2.093, 0, 0, 0};
-int _k = 0;
-int iter1 = 1;
-int iter2 = 1;
-int Kp[6] = {10, 300, 200, 10, 70, 10};
-int Kd[6] = {1, 22, 15, 1, 5, 1};
-double joint_limit[6] = {20, 40, 20, 20, 20, 20};
-std::fstream Save_data;
-bool target_flag = true;
+char xmlfilepath[100] = "../../robot_model/ARM_XML/Xiaotian_Arm_v3.xml";
+const double init_qpos[7] = {0, 0, 0, 0, 0, 0, 0};
+bool initSharedMemory = false;
+
+SharedMemoryObject<SharedMemoryInterface> sharedMemory;
+// // const double target_qpos1[7] = {0, 1.57, -3.14, 0, 0, 0, 0};
+// const double target_qpos1[7] = {0, 0, 0, 0, 0, 0, 0};
+// const double target_qpos2[7] = {0, 0.785, -1.57, 0, 0, 0, 0};
+// const double target_qpos3[7] = {0, 2.355, -2.093, 0, 0, 0, 0};
+// int _k = 0;
+// int iter1 = 1;
+// int iter2 = 1;
+// // int Kp[7] = {10, 300, 200, 10, 70, 10, 10};
+// // int Kd[7] = {1, 22, 15, 1, 5, 1, 1};
+// int Kp[7] = {15, 30, 30, 1, 1, 5, 1};
+// int Kd[7] = {3, 3, 3, 0, 0, 0, 0};
+// double joint_limit[7] = {20, 40, 20, 20, 20, 20, 10};
+// std::fstream Save_data;
+// bool target_flag = true;
 
 // model and data
 mjModel* m = NULL;
@@ -71,83 +80,100 @@ GLFWwindow* window = NULL;
 mjuiState uistate;
 mjUI ui0, ui1;
 
-void applyCtrl(){
-    double err[6] = {0, 0, 0, 0, 0, 0};
-    double cmd_q[6] = {0, 0, 0, 0, 0, 0};
-    double cmd_torque[6] = {0, 0, 0, 0, 0, 0};
-    const int nStep = 1500;
-    double duty = 0;
-    // if(iter1 < 2000){
-    //     duty = (double) iter1 / nStep;
-    //     iter1++;
-    // }
-    // else{
-    //     target_flag = false;
-    //     duty = (double) iter2 / nStep;
-    //     iter2++;
-    // }
+// void applyCtrl(){
+//     // double err[7] = {0, 0, 0, 0, 0, 0, 0};
+//     // double cmd_q[7] = {0, 0, 0, 0, 0, 0, 0};
+//     // double cmd_torque[7] = {0, 0, 0, 0, 0, 0, 0};
+//     // const int nStep = 1500;
+//     // double duty = 0;
+//     // if(iter1 < 2000){
+//     //     duty = (double) iter1 / nStep;
+//     //     iter1++;
+//     // }
+//     // else{
+//     //     target_flag = false;
+//     //     duty = (double) iter2 / nStep;
+//     //     iter2++;
+//     // }
     
-    if (iter1 > 2000){
-        d->xfrc_applied[42] = -10;
-        pert.select = 7;
-    }
-    if (iter1 > 3000){
-        d->xfrc_applied[42] = -20;
-        pert.select = 7;
-    }
-    if (iter1 > 4000){
-        d->xfrc_applied[42] = -30;
-        pert.select = 7;
-    }
-    for (int i = 0; i < 3; i++)
-        std::cout << "xfrc " << i << " : " << d->xfrc_applied[i + 42] << std::endl;
+//     // if (iter1 > 2000){
+//     //     d->xfrc_applied[42] = -10;
+//     //     pert.select = 7;
+//     // }
+//     // if (iter1 > 3000){
+//     //     d->xfrc_applied[42] = -20;
+//     //     pert.select = 7;
+//     // }
+//     // if (iter1 > 4000){
+//     //     d->xfrc_applied[42] = -30;
+//     //     pert.select = 7;
+//     // }
+//     // for (int i = 0; i < 3; i++)
+//     //     std::cout << "xfrc " << i << " : " << d->xfrc_applied[i + 42] << std::endl;
 
-    duty = (double) iter1 / nStep;
-    iter1++;
-
-
-
-    double target_qpos[6] = {0, 0, 0, 0, 0, 0};
-    if(target_flag){
-        for (int i = 0; i < 6; i++){
-            target_qpos[i] = target_qpos2[i];
-        }
-    }
-    else{
-        for (int i = 0; i < 6; i++){
-            target_qpos[i] = target_qpos3[i];
-        }
-    }
-    if (duty >= 1.)
-    {
-        duty = 1;
-    }
-    std::cout << "Duty: " << duty << std::endl;
-    for (int i = 0; i < 6; i++){
-        cmd_q[i] = duty * target_qpos[i] + (1 - duty) * d->sensordata[i];
-        err[i] = cmd_q[i] - d->sensordata[i];
-        cmd_torque[i] = Kp[i] * err[i] + Kd[i] * (-d->sensordata[i + 6]);
-        if(abs(cmd_torque[i]) > joint_limit[i]){
-            cmd_torque[i] = cmd_torque[i] / abs(cmd_torque[i]) * joint_limit[i];
-        }
-        d->ctrl[i + 12] = cmd_torque[i];
-        // std::cout << "joint " << i << " torque: " << d->ctrl[i + 12] <<std::endl;
-        // std::cout << "joint " << i << " velocity: " << d->sensordata[i + 6] <<std::endl;       
-        // std::cout << "joint " << i << " cmd_q: " << cmd_q[i] <<std::endl;
-        // std::cout << "joint " << i << " q: " << d->sensordata[i] <<std::endl;
-    }
-    Save_data.open("../../data/door_state.txt", std::fstream::app);
-    for (int i = 0; i < 6; i++){
-        Save_data << cmd_torque[i] << " ";
-    }
-    Save_data << std::endl;
-    Save_data.close();
+//     // duty = (double) iter1 / nStep;
+//     // iter1++;
 
 
-    // getchar();
+
+//     // double target_qpos[7] = {0, 0, 0, 0, 0, 0, 0};
+//     // if(target_flag){
+//     //     for (int i = 0; i < 7; i++){
+//     //         target_qpos[i] = target_qpos1[i];
+//     //     }
+//     // }
+//     // else{
+//     //     for (int i = 0; i < 7; i++){
+//     //         target_qpos[i] = target_qpos3[i];
+//     //     }
+//     // }
+//     if (duty >= 1.)
+//     {
+//         duty = 1;
+//     }
+//     std::cout << "Duty: " << duty << std::endl;
+//     for (int i = 0; i < 7; i++){
+//         cmd_q[i] = duty * target_qpos1[i] + (1 - duty) * d->sensordata[i];
+//         err[i] = cmd_q[i] - d->sensordata[i];
+//         cmd_torque[i] = Kp[i] * err[i] + Kd[i] * (-d->sensordata[i + 6]);
+//         if(abs(cmd_torque[i]) > joint_limit[i]){
+//             cmd_torque[i] = cmd_torque[i] / abs(cmd_torque[i]) * joint_limit[i];
+//         }
+//         d->ctrl[i + 14] = cmd_torque[i];
+//         std::cout << "joint " << i << " torque: " << d->ctrl[i + 14] <<std::endl;
+//         std::cout << "err " << i << " : " << err[i] <<std::endl; 
+//         // std::cout << "joint " << i << " velocity: " << d->sensordata[i + 6] <<std::endl;       
+//         // std::cout << "joint " << i << " cmd_q: " << cmd_q[i] <<std::endl;
+//         // std::cout << "joint " << i << " q: " << d->sensordata[i] <<std::endl;
+//     }
+//     // Save_data.open("../../data/door_state.txt", std::fstream::app);
+//     // for (int i = 0; i < 7; i++){
+//     //     Save_data << cmd_torque[i] << " ";
+//     // }
+//     // Save_data << std::endl;
+//     // Save_data.close();
+
+
+//     // getchar();
+// }
+
+void applyCtrl(){
+    for (int i = 0; i < 7; i++){
+        d->ctrl[i + 14] = sharedMemory().jointsCmd.tau_ff[i];
+    }
+
+    for (int i = 0; i < 7; i++){
+        d->ctrl[i] = sharedMemory().jointsCmd.qpos_des[i];
+        // std::cout << d->ctrl[i] << std::endl;   
+    }
 }
 
-
+void updateRobotState(){
+    for (int i = 0; i < 7; i++){
+        sharedMemory().measuredState.jointsState.qpos[i] = d->sensordata[i];
+        sharedMemory().measuredState.jointsState.qvel[i] = d->sensordata[i + 7];
+    }
+}
 
 // UI settings not contained in MuJoCo structures
 struct
@@ -1952,6 +1978,12 @@ void simulate(void)
             // running
             if( settings.run )
             {
+                if(!initSharedMemory){
+                    sharedMemory.createNew(ROBOTARM_SHARE_MEMORY_NAME, true);
+                    sharedMemory().init();
+                    initSharedMemory = true;
+                }
+                
                 // record cpu time at start of iteration
                 double tmstart = glfwGetTime();
 
@@ -1967,12 +1999,18 @@ void simulate(void)
                     mju_zero(d->xfrc_applied, 6*m->nbody);
                     mjv_applyPerturbPose(m, d, &pert, 0);  // move mocap bodies only
                     mjv_applyPerturbForce(m, d, &pert);
+
                     // std::cout << "pert.select: " << pert.select << std::endl;
                     // run single step, let next iteration deal with timing
-                    mj_step1(m, d);
-
-                    applyCtrl();
-                    mj_step2(m, d);
+                    updateRobotState();
+                    sharedMemory().robotIsDone();
+                    // sharedMemory().waitForController();
+                    if (sharedMemory().waitForControllerWithTimeout(2, 0))
+                    {
+                        // apply control if controller is done
+                        applyCtrl();
+                        mj_step2(m, d);
+                    }
 
                 }
 
@@ -1991,11 +2029,15 @@ void simulate(void)
                         // run mj_step
                         mjtNum prevtm = d->time;
                         mj_step1(m, d);
-                        // updateRobotState();
-                       
-                        applyCtrl();
-                        mj_step2(m, d);
-
+                        updateRobotState();
+                        sharedMemory().robotIsDone();
+                        // sharedMemory().waitForController();
+                        if (sharedMemory().waitForControllerWithTimeout(2, 0))
+                        {
+                            // apply control if controller is done
+                            applyCtrl();
+                            mj_step2(m, d);
+                        }
                         // break on reset
                         if( d->time<prevtm )
                             break;

@@ -22,4 +22,9 @@ message("Current cmake binary dir: " ${CMAKE_BINARY_DIR})
 include_directories(${CMAKE_BINARY_DIR})
 
 add_subdirectory(sim)
+add_subdirectory(gripper_test)
+add_subdirectory(controller)
+# add_subdirectory(robot)
+add_subdirectory(thirdparty)
+
 

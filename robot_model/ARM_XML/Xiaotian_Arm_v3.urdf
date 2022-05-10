@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Xiaotian_Arm_v3">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00011891 2.1739E-05 0.037018"
+        rpy="0 0 0" />
+      <mass
+        value="0.380" />
+      <inertia
+        ixx="3.254146E-05"
+        ixy="-6.730E-08"
+        ixz="-1.9753E-07"
+        iyy="3.269992E-05"
+        iyz="-1.681E-08"
+        izz="2.282150E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="actuator1">
+    <inertial>
+      <origin
+        xyz="9.172E-06 -0.0038593 0.042337"
+        rpy="0 0 0" />
+      <mass
+        value="1.16414" />
+      <inertia
+        ixx="0.00065535259"
+        ixy="2.379E-08"
+        ixz="2.1654E-07"
+        iyy="0.00044561266"
+        iyz="-4.750137E-05"
+        izz="0.00050672553" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.06789"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="actuator1" />
+    <axis
+      xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="actuator2">
+    <inertial>
+      <origin
+        xyz="-0.15554 5.3314E-06 0.045289"
+        rpy="0 0 0" />
+      <mass
+        value="0.76990" />
+      <inertia
+        ixx="0.00057444983"
+        ixy="-2.73628E-06"
+        ixz="-1.7491313E-04"
+        iyy="0.01414249744"
+        iyz="3.993E-08"
+        izz="0.01380626081" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.53333 0.85098 0.82353 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="-0.010103 -0.048969 0.054"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="actuator1" />
+    <child
+      link="actuator2" />
+    <axis
+      xyz="-0.20207 0 -0.97937" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="actuator3">
+    <inertial>
+      <origin
+        xyz="0.096602 -0.058308 0.032914"
+        rpy="0 0 0" />
+      <mass
+        value="0.72893" />
+      <inertia
+        ixx="0.00060064708"
+        ixy="-7.7930502E-04"
+        ixz="-4.366158E-05"
+        iyy="0.00522035625"
+        iyz="-2.223023E-05"
+        izz="0.00530796732" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="-0.3239 0 0.012478"
+      rpy="0 0 0" />
+    <parent
+      link="actuator2" />
+    <child
+      link="actuator3" />
+    <axis
+      xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="actuator4">
+    <inertial>
+      <origin
+        xyz="0.042348 -0.00057806 0.032474"
+        rpy="0 0 0" />
+      <mass
+        value="0.51931" />
+      <inertia
+        ixx="0.00025573434"
+        ixy="-1.710739E-05"
+        ixz="4.385173E-05"
+        iyy="0.00041298999"
+        iyz="-2.93222E-06"
+        izz="0.00035813309" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="0.20571 -0.072177 -0.00099033"
+      rpy="0 0 -0.067094" />
+    <parent
+      link="actuator3" />
+    <child
+      link="actuator4" />
+    <axis
+      xyz="0 0 1" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="actuator5">
+    <inertial>
+      <origin
+        xyz="0.052455 7.6209E-06 -0.03329"
+        rpy="0 0 0" />
+      <mass
+        value="0.5168" />
+      <inertia
+        ixx="0.00022750534"
+        ixy="1.430E-08"
+        ixz="-5.152283E-05"
+        iyy="0.00049991491"
+        iyz="1.0502E-07"
+        izz="0.00037987223" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.0665 -0.036429 0.0365"
+      rpy="1.5708 0 0" />
+    <parent
+      link="actuator4" />
+    <child
+      link="actuator5" />
+    <axis
+      xyz="-0.0038871 0 -0.99999" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="actuator6">
+    <inertial>
+      <origin
+        xyz="0.0048827 -0.00030958 0.061809"
+        rpy="0 0 0" />
+      <mass
+        value="0.26669" />
+      <inertia
+        ixx="0.00038724413"
+        ixy="-3.8362E-07"
+        ixz="9.2791E-07"
+        iyy="0.00040204568"
+        iyz="-3.262202E-05"
+        izz="9.238543E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.53333 0.85098 0.82353 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/actuator6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0.10299 0 -0.0375"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="actuator5" />
+    <child
+      link="actuator6" />
+    <axis
+      xyz="0 0.0038871 -0.99999" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+  <link
+    name="gripper">
+    <inertial>
+      <origin
+        xyz="0.047354 -0.013359 -0.020482"
+        rpy="0 0 0" />
+      <mass
+        value="0.062634" />
+      <inertia
+        ixx="2.9943E-05"
+        ixy="1.5283E-06"
+        ixz="-2.5659E-06"
+        iyy="8.8252E-05"
+        iyz="2.7045E-07"
+        izz="6.3717E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/gripper.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="./arm_meshes_v3/gripper.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Gripper_link"
+    type="revolute">
+    <origin
+      xyz="0 0.0235 0.061"
+      rpy="0 -1.5037 -1.5708" />
+    <parent
+      link="actuator6" />
+    <child
+      link="gripper" />
+    <axis
+      xyz="0.067044 0 -0.99775" />
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="10" />
+  </joint>
+</robot>

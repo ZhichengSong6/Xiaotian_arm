@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/base_link.STL" />
+          filename="./arm_meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/base_link.STL" />
+          filename="./arm_meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator1.STL" />
+          filename="./arm_meshes/actuator1.STL" />
       </geometry>
       <material
         name="">
@@ -80,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator1.STL" />
+          filename="./arm_meshes/actuator1.STL" />
       </geometry>
     </collision>
   </link>
@@ -119,7 +119,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator2.STL" />
+          filename="./arm_meshes/actuator2.STL" />
       </geometry>
       <material
         name="">
@@ -133,7 +133,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator2.STL" />
+          filename="./arm_meshes/actuator2.STL" />
       </geometry>
     </collision>
   </link>
@@ -172,7 +172,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator3.STL" />
+          filename="./arm_meshes/actuator3.STL" />
       </geometry>
       <material
         name="">
@@ -186,7 +186,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator3.STL" />
+          filename="./arm_meshes/actuator3.STL" />
       </geometry>
     </collision>
   </link>
@@ -225,7 +225,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator4.STL" />
+          filename="./arm_meshes/actuator4.STL" />
       </geometry>
       <material
         name="">
@@ -239,7 +239,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator4.STL" />
+          filename="./arm_meshes/actuator4.STL" />
       </geometry>
     </collision>
   </link>
@@ -278,7 +278,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator5.STL" />
+          filename="./arm_meshes/actuator5.STL" />
       </geometry>
       <material
         name="">
@@ -292,7 +292,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator5.STL" />
+          filename="./arm_meshes/actuator5.STL" />
       </geometry>
     </collision>
   </link>
@@ -331,7 +331,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator6.STL" />
+          filename="./arm_meshes/actuator6.STL" />
       </geometry>
       <material
         name="">
@@ -345,7 +345,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://Xiaotian_Arm_v1/meshes/actuator6.STL" />
+          filename="./arm_meshes/actuator6.STL" />
       </geometry>
     </collision>
   </link>
@@ -362,4 +362,5 @@
     <axis
       xyz="0 0 -1" />
   </joint>
+
 </robot>

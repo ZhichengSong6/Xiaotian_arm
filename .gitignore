@@ -1,1 +1,36 @@
-build/CMakeFiles
+# Ignore build directory
+build/
+cmake-build-debug/
+data/*.txt
+data/sim/*.txt
+data/real/*.txt
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+# *.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Executables
+*.exe
+*.out
+*.app
+# tool
+.vscode/
+.idea/
+.ipynb_checkpoints/

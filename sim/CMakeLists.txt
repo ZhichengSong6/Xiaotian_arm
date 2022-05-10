@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(mininezha_sim)
+project(XiaotianArm_sim)
 
 set(BUILD_TYPE_RELEASE TRUE)
 set(CMAKE_C_FLAGS "-O3  -ggdb  -march=native -std=gnu99 -I.")
@@ -12,11 +12,11 @@ find_library(GLFW libglfw.so.3 HINTS ${MUJOCO_LIB_DIR})
 # find_library(MUJOCO libmujoco200.so ${MUJOCO_LIB_DIR} REQUIRE
 
 include_directories("./include/")
+include_directories("../Utilities/include/")
+include_directories("../controller/include/")
 link_directories(${CMAKE_BIN_DIR})
 
 add_executable(Arm_sim simulate.cpp)
-
-
 target_include_directories(Arm_sim PRIVATE ./include/)
 target_link_libraries(Arm_sim mujoco200 ${GLFW} GL glew uitools pthread rt)
 

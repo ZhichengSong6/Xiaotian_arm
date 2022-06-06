@@ -8,12 +8,12 @@ Trajectory::Trajectory(){
 }
 
 void Trajectory::generateTraj(Eigen::VectorXd &Qstart, Eigen::VectorXd &Qend, double speed_ratio){
-    _initialQ = Qstart;
-    _endQ = Qend;
+    initialQ = Qstart;
+    endQ = Qend;
 
     _motionTime = 0, _tmp_motionTime = 0;
     for(int i = 0; i < 6; ++i){
-        _tmp_motionTime = 15 *fabs(_endQ(i) - _initialQ(i)) / (8 * _jointSpeedLimit.at(i) * speed_ratio);
+        _tmp_motionTime = 15 *fabs(endQ(i) - initialQ(i)) / (8 * jointSpeedLimit.at(i) * speed_ratio);
         if(_tmp_motionTime > _motionTime)
             _motionTime = _tmp_motionTime;
     }
@@ -25,15 +25,15 @@ void Trajectory::generateTraj(Eigen::VectorXd &Qstart, Eigen::VectorXd &Qend, do
 }
 
 void Trajectory::getJointCmd(Eigen::VectorXd &q, Eigen::VectorXd &dq){
-    if (_T < _motionTime){
-        _s = _a3*pow(_T,3) + _a4*pow(_T,4) + _a5*pow(_T,5);
-        _sdot = 3*_a3*pow(_T,2) + 4*_a4*pow(_T,3) + 5*_a5*pow(_T,4);
+    if (T < _motionTime){
+        _s = _a3 * pow(T, 3) + _a4 * pow(T, 4) + _a5 * pow(T, 5);
+        _sdot = 3 * _a3 * pow(T, 2) + 4 * _a4 * pow(T, 3) + 5 * _a5 * pow(T, 4);
 
-        q = _s * (_endQ - _initialQ);
-        dq = _sdot * (_endQ - _initialQ);
+        q = _s * (endQ - initialQ);
+        dq = _sdot * (endQ - initialQ);
     }
     else{
-        q = _endQ;
+        q = endQ;
         dq.setZero();
     }
 }

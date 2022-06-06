@@ -39,14 +39,14 @@ void ArmController::init(){
     this->qdes_arm_last.resize(6, 1);
     this->q_end.resize(6, 1);
     this->q_initial.resize(6, 1);
-    trajectory._jointMaxq.resize(6, 1);
-    trajectory._jointMinq.resize(6, 1);
-    trajectory._jointSpeedLimit.resize(6, 1);
+    trajectory.jointMaxq.resize(6, 1);
+    trajectory.jointMinq.resize(6, 1);
+    trajectory.jointSpeedLimit.resize(6, 1);
 
     for(int i = 0; i < 6; ++i){
-        trajectory._jointMaxq[i] = 1.54;
-        trajectory._jointMinq[i] = -1.54;
-        trajectory._jointSpeedLimit[i] = 1.57;
+        trajectory.jointMaxq[i] = 1.57;
+        trajectory.jointMinq[i] = -1.57;
+        trajectory.jointSpeedLimit[i] = 1.57;
     }
 
     std::cout << "model_nv: " << robotarm.GetNv() << std::endl; 
@@ -68,14 +68,14 @@ void ArmController::run(){
         getQDes();
         for(int i = 0; i < 6; i ++)
             q_initial[i] = armdata.arm_dq[i];
-        trajectory.generateTraj(q_initial, q_end, 1);
-        trajectory._startTime = time.getMs();
+        trajectory.generateTraj(q_initial, q_end, 0.5);
+        trajectory.startTime = time.getMs();
         std::cout << "Trajectory generate done!" << std::endl;
 #endif
 
     }
-    trajectory._currentTime = time.getMs();
-    trajectory._T = (trajectory._currentTime - trajectory._startTime ) * pow(10, -3);
+    trajectory.currentTime = time.getMs();
+    trajectory.T = (trajectory.currentTime - trajectory.startTime ) * pow(10, -3);
     runController();
     updateCommand();
     updateBuffer();
@@ -117,7 +117,7 @@ void ArmController::getQDes(){
 
 void ArmController::movearm(){
     trajectory.getJointCmd(qdes_arm, dqdes_arm);
-    std::cout << "Current Time: " << trajectory._T << std::endl;
+    std::cout << "Current Time: " << trajectory.T << std::endl;
 
 
     for (int i = 0; i < 6; i++){

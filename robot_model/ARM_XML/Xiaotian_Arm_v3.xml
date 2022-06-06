@@ -1,5 +1,5 @@
 <mujoco model="Xiaotian_Arm_v3">
- <compiler angle="radian" meshdir="arm_meshes_v3" balanceinertia="false" />
+    <compiler angle="radian" meshdir="arm_meshes_v3" balanceinertia="false" />
 	<size njmax="500" nconmax="100" />
 	<option gravity="0 0 -9.806" iterations="50" solver="Newton" timestep="0.002" />
 	<default>

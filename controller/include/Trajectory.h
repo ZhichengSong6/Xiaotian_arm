@@ -17,13 +17,13 @@ public:
 
     void generateTraj(Eigen::VectorXd &Qstart, Eigen::VectorXd &Qend, double speed_ratio);
     void getJointCmd(Eigen::VectorXd &q, Eigen::VectorXd &dq);
-    std::vector<double> _jointMaxq;
-    std::vector<double> _jointMinq;
-    std::vector<double> _jointSpeedLimit;
-    double _currentTime;
-    double _startTime;
-    double _T;
-    Eigen::VectorXd _initialQ, _endQ;
+    double currentTime;
+    double startTime;
+    double T;
+    std::vector<double> jointMaxq;
+    std::vector<double> jointMinq;
+    std::vector<double> jointSpeedLimit;
+    Eigen::VectorXd initialQ, endQ;
 
 private:
     double _motionTime, _tmp_motionTime;
